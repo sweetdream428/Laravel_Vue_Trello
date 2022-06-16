@@ -319,10 +319,10 @@ export default {
     };
   },
   created() {
-    axios.get(`https://backend-laravel-app.herokuapp.com/api/columns`).then((res) => {
+    axios.get(`http://127.0.0.1/api/columns`).then((res) => {
       this.columns = JSON.parse(res.data.columns);
     });
-    axios.get(`https://backend-laravel-app.herokuapp.com/api/cards`).then((res) => {
+    axios.get(`http://127.0.0.1/api/cards`).then((res) => {
       this.cards = JSON.parse(res.data.cards);
     });
   },
@@ -330,7 +330,7 @@ export default {
   methods: {
     checkMove: function (evt) {
       axios
-        .post("https://backend-laravel-app.herokuapp.com/api/columns/orderchange", {
+        .post("http://127.0.0.1/api/columns/orderchange", {
           firstId: evt.draggedContext.element.id,
           targetId: evt.relatedContext.element.id,
         })
@@ -341,7 +341,7 @@ export default {
     addcolumn: function () {
       if (this.newColumn) {
         axios
-          .post("https://backend-laravel-app.herokuapp.com/api/columns", { name: this.newColumn })
+          .post("http://127.0.0.1/api/columns", { name: this.newColumn })
           .then(
             (res) => (
               (this.columns = JSON.parse(res.data.columns)),
@@ -353,7 +353,7 @@ export default {
     editcolumn: function () {
       if (this.updateColumn) {
         axios
-          .patch(`https://backend-laravel-app.herokuapp.com/api/columns/${this.editId}`, {
+          .patch(`http://127.0.0.1/api/columns/${this.editId}`, {
             name: this.updateColumn,
           })
           .then((res) => {
@@ -373,7 +373,7 @@ export default {
     },
 
     removeColumnicon(id) {
-      axios.delete(`https://backend-laravel-app.herokuapp.com/api/columns/${id}`).then((res) => {
+      axios.delete(`http://127.0.0.1/api/columns/${id}`).then((res) => {
         console.log(res.data);
         let i = this.columns.map((data) => data.id).indexOf(id);
         this.columns.splice(i, 1);
@@ -384,7 +384,7 @@ export default {
     addcard: function (id) {
       if (this.newCardTitle && this.newCardDesc) {
         axios
-          .post("https://backend-laravel-app.herokuapp.com/api/cards", {
+          .post("http://127.0.0.1/api/cards", {
             name: this.newCardTitle,
             description: this.newCardDesc,
             column_id: id,
@@ -402,7 +402,7 @@ export default {
       }
     },
     removeCardicon(id) {
-      axios.delete(`https://backend-laravel-app.herokuapp.com/api/cards/${id}`).then((res) => {
+      axios.delete(`http://127.0.0.1/api/cards/${id}`).then((res) => {
         console.log(res.data);
         let i = this.cards.map((data) => data.id).indexOf(id);
         this.cards.splice(i, 1);
@@ -411,7 +411,7 @@ export default {
     editcard: function (id) {
       if (this.updateCardTitle) {
         axios
-          .patch(`https://backend-laravel-app.herokuapp.com/api/cards/${id}`, {
+          .patch(`http://127.0.0.1/api/cards/${id}`, {
             name: this.updateCardTitle,
             description: this.updateCardDesc,
           })
@@ -437,7 +437,7 @@ export default {
     arrowUp: function (column, card, cardindex) {
       if (cardindex != 0) {
         axios
-          .post("https://backend-laravel-app.herokuapp.com/api/cards/arrow", {
+          .post("http://127.0.0.1/api/cards/arrow", {
             column: column,
             card: card,
             cardindex: cardindex,
@@ -461,7 +461,7 @@ export default {
 
       if (cardindex != cardlingth - 1) {
         axios
-          .post("https://backend-laravel-app.herokuapp.com/api/cards/arrow", {
+          .post("http://127.0.0.1/api/cards/arrow", {
             column: column,
             card: card,
             cardindex: cardindex,
@@ -481,7 +481,7 @@ export default {
     arrowLeft: function (column, card, columnindex) {
       if (columnindex != 0) {
         axios
-          .post("https://backend-laravel-app.herokuapp.com/api/cards/arrow", {
+          .post("http://127.0.0.1/api/cards/arrow", {
             column: column,
             card: card,
             columnindex: columnindex,
@@ -501,7 +501,7 @@ export default {
     arrowRight: function (column, card, columnindex) {
       if (columnindex != this.columns.length - 1) {
         axios
-          .post("https://backend-laravel-app.herokuapp.com/api/cards/arrow", {
+          .post("http://127.0.0.1/api/cards/arrow", {
             column: column,
             card: card,
             columnindex: columnindex,
@@ -520,8 +520,8 @@ export default {
 
     // Database
     backup: function () {
-      axios.post(`https://backend-laravel-app.herokuapp.com/api/backup`).then((res) => {
-        window.location.href = "https://backend-laravel-app.herokuapp.com/" + res.data.filename;
+      axios.post(`http://127.0.0.1/api/backup`).then((res) => {
+        window.location.href = "http://127.0.0.1/" + res.data.filename;
       });
     },
   },
